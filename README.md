@@ -21,7 +21,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Adicionar Libs necessárias
 - [ ] Adicionar Tocar Músicas 
 
-## 🚀 Instalando <nome_do_projeto>
+## 🚀 Instalando discordjs-bot
 
 Para instalar o discordjs-bot, siga estas etapas:
 
