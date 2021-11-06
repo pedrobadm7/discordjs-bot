@@ -47,7 +47,7 @@ yarn start
 Para contribuir com discordjs-bot, siga estas etapas:
 
 1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b discordjs-bot`.
+2. Crie um branch: `git checkout -b <nome_da_branch>`.
 3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
 4. Envie para o branch original: `git push origin discordjs-bot / <local>`
 5. Crie a solicitação de pull.
