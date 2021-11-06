@@ -1,5 +1,5 @@
-# discordjs-bot
-# Nome do projeto
+
+# Ordep Bot
 
 <!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
@@ -11,17 +11,16 @@
 
 <img src="discord.png" alt="Discord">
 
-> Linha adicional de texto informativo sobre o que o projeto faz. Sua introdução deve ter cerca de 2 ou 3 linhas. Não exagere, as pessoas não vão ler.
+>Bot com funcionalidades básicas para Discord
 
 ### Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-- [x] Tarefa 1
-- [x] Tarefa 2
-- [x] Tarefa 3
-- [ ] Tarefa 4
-- [ ] Tarefa 5
+- [x] Adicionar Kick/Ban Function
+- [x] Adicionar Libs necessárias
+- [ ] Adicionar Tocar Músicas 
+
 
 ## 💻 Pré-requisitos
 
