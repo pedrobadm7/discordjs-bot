@@ -11,10 +11,22 @@ const notFoundMessage = (eventMessageObject) =>
     "Não encontrei o membro não meu glorioso Jedi"
   );
 
+const notFoundSong = (eventMessageObject) =>
+  eventMessageObject.channel.send(
+    "Eae, quer que eu adivinhe o que você quer ouvir? Escreve o nome da música meu chegado"
+  );
+
+const hasToEnterInVoiceChannel = (eventMessageObject) =>
+  eventMessageObject.channel.send(
+    "Você deve entrar em um canal de voz para reproduzir a música, amigo"
+  );
+
 const Commands = {
   hasNoIdResponse,
   noPermissionToKickResponse,
   notFoundMessage,
+  notFoundSong,
+  hasToEnterInVoiceChannel,
 };
 
 module.exports = Commands;

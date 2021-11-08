@@ -1,3 +1,8 @@
+const {
+  notFoundSong,
+  hasToEnterInVoiceChannel,
+} = require("../commandsResponse");
+
 const searchSong = require("yt-search");
 const { joinVoiceChannel, getVoiceConnection } = require("@discordjs/voice");
 const ytdl = require("ytdl-core-discord");
@@ -7,12 +12,11 @@ const execute = ({ client, message, args }) => {
   try {
     searchSong(songName, (err, result) => {
       if (err) {
-        throw err;
+        return notFoundSong(message);
+      } else if (result && result.videos.length > 0) {
+        playSong({ client, message, args });
       } else {
-        if (result && result.videos.length > 0) {
-          const song = result.videos[0];
-          playSong({ client, message, song });
-        }
+        return message.reply("Não sei tocar essa aí não, malz");
       }
     });
   } catch (err) {
@@ -20,34 +24,31 @@ const execute = ({ client, message, args }) => {
   }
 };
 
-const playSong = async ({ client, message, song }) => {
-  if (!song) {
-  }
-  if (!message.member.voice.channel) {
-    return message.channel.send(
-      "Você deve entrar em um canal de voz para reproduzir a música, amigo"
-    );
-  }
-
+const playSong = async ({ client, message, args }) => {
   let queue = client.queues.get(message.guild.id);
-  if (!queue) {
-    const voiceChannel = joinVoiceChannel({
-      channelId: message.member.voice.channel.id,
-      guildId: message.guild.id,
-      adapterCreator: message.guild.voiceAdapterCreator,
-    });
-    queue = {
-      volume: 10,
-      connection: voiceChannel,
-      dispatcher: null,
-      songs: [song],
-    };
 
-    const dispatcher = queue.connection.play(await ytdl(song.url), {
-      type: "opus",
+  if (!message.member.voice.channel) {
+    return hasToEnterInVoiceChannel(message);
+  }
+
+  if (!queue) {
+    queue = client.player.createQueue(message.guild.id);
+    const guildQueue = client.player.getQueue(message.guild.id);
+
+    await queue.join(message.member.voice.channel);
+
+    await queue.play(args.join(" ")).catch((_) => {
+      if (!guildQueue) queue.stop();
     });
-    queue.dispatcher = dispatcher;
-    client.queues.set(message.guild.id, queue);
+    return message.channel.send(`Estou tocando ${guildQueue.nowPlaying}`);
+  } else {
+    queue = client.player.createQueue(message.guild.id);
+    await queue.join(message.member.voice.channel);
+    await queue.playlist(args.join(" ")).catch((_) => {
+      if (!guildQueue) {
+        console.log("Fila da Guilda inexistente");
+      }
+    });
   }
 };
 
