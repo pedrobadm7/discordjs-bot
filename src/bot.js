@@ -9,6 +9,7 @@ const { banMember } = require("./commands/ban");
 const { hello } = require("./commands/hello");
 const { helpUser } = require("./commands/help");
 const { play } = require("./commands/play");
+const { embed } = require("./commands/embed");
 
 dotenv.config();
 
@@ -98,6 +99,10 @@ client.on("messageCreate", async (message) => {
       case "progress":
         const ProgressBar = guildQueue.createProgressBar();
         message.reply(ProgressBar.prettier);
+        break;
+
+      case "embed":
+        embed({ client, message, args });
         break;
 
       default:
