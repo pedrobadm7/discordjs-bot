@@ -8,6 +8,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 .env
+.vscode
+*.log
 web-build/
 
 yarn-error.log
