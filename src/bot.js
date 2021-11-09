@@ -10,7 +10,6 @@ const { hello } = require("./commands/hello");
 const { helpUser } = require("./commands/help");
 const { play } = require("./commands/play");
 const { embed } = require("./commands/embed");
-const { role } = require("./commands/role");
 
 dotenv.config();
 
@@ -108,10 +107,6 @@ client.on("messageCreate", async (message) => {
 
       case "embed":
         embed({ client, message, args });
-        break;
-
-      case "role":
-        role({ client, message, args });
         break;
 
       default:
