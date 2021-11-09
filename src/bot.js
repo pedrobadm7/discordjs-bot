@@ -1,15 +1,15 @@
-const dotenv = require("dotenv");
-const fs = require("fs");
-const path = require("path");
-const { Client, Intents, Collection } = require("discord.js");
-const { Player } = require("discord-music-player");
+const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
+const { Client, Intents, Collection } = require('discord.js');
+const { Player } = require('discord-music-player');
 
-const { kickMember } = require("./commands/kick");
-const { banMember } = require("./commands/ban");
-const { hello } = require("./commands/hello");
-const { helpUser } = require("./commands/help");
-const { play } = require("./commands/play");
-const { embed } = require("./commands/embed");
+const { kickMember } = require('./commands/kick');
+const { banMember } = require('./commands/ban');
+const { hello } = require('./commands/hello');
+const { helpUser } = require('./commands/help');
+const { play } = require('./commands/play');
+const { embed } = require('./commands/embed');
 
 dotenv.config();
 
@@ -26,24 +26,24 @@ client.queues = new Map();
 client.player = new Player(client, {
   ytdlRequestOptions: {
     highWaterMark: 1 << 25,
-    filter: "audioonly",
+    filter: 'audioonly',
   },
 });
 
 const commandFiles = fs
-  .readdirSync(path.join(__dirname, "./commands"))
-  .filter((filename) => filename.endsWith(".js"));
+  .readdirSync(path.join(__dirname, './commands'))
+  .filter((filename) => filename.endsWith('.js'));
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
 
-client.on("ready", () => {
+client.on('ready', () => {
   console.log(`${client.user.tag} está na área papae.`);
 });
 
-client.on("messageCreate", async (message) => {
+client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
   let guildQueue = client.player.getQueue(message.guild.id);
   if (message.content.startsWith(process.env.PREFIX)) {
@@ -51,66 +51,66 @@ client.on("messageCreate", async (message) => {
     const CMD_NAME = args.shift().toLowerCase();
 
     switch (CMD_NAME) {
-      case "kick":
+      case 'kick':
         kickMember({ client, message, args });
         break;
 
-      case "ban":
+      case 'ban':
         banMember({ client, message, args });
         break;
 
-      case "hello":
+      case 'hello':
         hello({ client, message, args });
         break;
 
-      case "help":
+      case 'help':
         helpUser({ client, message, args });
         console.log(guildQueue);
         break;
 
-      case "play":
+      case 'play':
         play({ client, message, args });
         break;
 
-      case "skip":
+      case 'skip':
         guildQueue.skip();
         break;
 
-      case "stop":
+      case 'stop':
         guildQueue.stop();
-        message.reply("Parando essa bagaça");
+        message.reply('Parando essa bagaça');
         break;
 
-      case "now":
+      case 'now':
         message.reply(`Now playing: ${guildQueue.nowPlaying}`);
 
         break;
 
-      case "pause":
+      case 'pause':
         guildQueue.setPaused(true);
-        message.reply("Música pausada");
+        message.reply('Música pausada');
         break;
 
-      case "resume":
+      case 'resume':
         guildQueue.setPaused(false);
-        message.reply("Música despausada");
+        message.reply('Música despausada');
         break;
 
-      case "progress":
+      case 'progress':
         const ProgressBar = guildQueue.createProgressBar();
         message.reply(ProgressBar.prettier);
         break;
 
-      case "volume":
+      case 'volume':
         guildQueue.setVolume(parseInt(args[0]));
         break;
 
-      case "embed":
+      case 'embed':
         embed({ client, message, args });
         break;
 
       default:
-        return message.reply("Não conheço essa giria, pae");
+        return message.reply('Não conheço essa giria, pae');
     }
   }
 });
