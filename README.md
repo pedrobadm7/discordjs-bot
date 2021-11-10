@@ -68,6 +68,14 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
         </sub>
       </a>
     </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://avatars.githubusercontent.com/Marcio-Tiene" width="100px;" alt="Foto do Marcio Tiene"/><br>
+        <sub>
+          <b>Marcio Tiene</b>
+        </sub>
+      </a>
+    </td>
   </tr>
 </table>
 
